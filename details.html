@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bus Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <h2>🚍 Transport Tracker</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="track.html">Track</a>
+    <a href="details.html">Details</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<section class="details-container">
+
+<h1>📊 Bus Details Dashboard</h1>
+
+<!-- SEARCH -->
+<input type="text" id="search" placeholder="Search Bus..." onkeyup="searchBus()">
+
+<!-- TABLE -->
+<table id="busTable">
+  <tr>
+    <th>Bus No</th>
+    <th>Route</th>
+    <th>Driver</th>
+    <th>Phone</th>
+    <th>Capacity</th>
+    <th>Passengers</th>
+    <th>Status</th>
+    <th>Next Stop</th>
+    <th>ETA</th>
+  </tr>
+
+  <tr>
+    <td>101</td>
+    <td>Chennai → Tambaram</td>
+    <td>Ravi</td>
+    <td>9876543210</td>
+    <td>50</td>
+    <td>35</td>
+    <td class="on">On Time</td>
+    <td>Guindy</td>
+    <td>10 mins</td>
+  </tr>
+
+  <tr>
+    <td>102</td>
+    <td>Chennai → Velachery</td>
+    <td>Suresh</td>
+    <td>9123456780</td>
+    <td>45</td>
+    <td>40</td>
+    <td class="delay">Delayed</td>
+    <td>Adyar</td>
+    <td>20 mins</td>
+  </tr>
+
+  <tr>
+    <td>103</td>
+    <td>Chennai → T Nagar</td>
+    <td>Kumar</td>
+    <td>9001122334</td>
+    <td>40</td>
+    <td>28</td>
+    <td class="on">On Time</td>
+    <td>Vadapalani</td>
+    <td>8 mins</td>
+  </tr>
+
+</table>
+
+<!-- SUMMARY CARDS -->
+<div class="summary">
+
+  <div class="card">
+    <h3>Total Buses</h3>
+    <p>3</p>
+  </div>
+
+  <div class="card">
+    <h3>On Time</h3>
+    <p class="on">2</p>
+  </div>
+
+  <div class="card">
+    <h3>Delayed</h3>
+    <p class="delay">1</p>
+  </div>
+
+</div>
+
+</section>
+
+<script>
+function searchBus() {
+  let input = document.getElementById("search").value.toLowerCase();
+  let rows = document.querySelectorAll("#busTable tr");
+
+  rows.forEach((row, index) => {
+    if(index === 0) return;
+    let text = row.innerText.toLowerCase();
+    row.style.display = text.includes(input) ? "" : "none";
+  });
+}
+</script>
+
+</body>
+</html>
