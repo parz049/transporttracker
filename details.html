@@ -17,98 +17,153 @@
   </div>
 </nav>
 
-<section class="details-container">
+<h2>📊 Bus Route Details</h2>
 
-<h1>📊 Bus Details Dashboard</h1>
-
-<!-- SEARCH -->
 <input type="text" id="search" placeholder="Search Bus..." onkeyup="searchBus()">
 
-<!-- TABLE -->
+<!-- ✅ TABLE START -->
 <table id="busTable">
-  <tr>
-    <th>Bus No</th>
-    <th>Route</th>
-    <th>Driver</th>
-    <th>Phone</th>
-    <th>Capacity</th>
-    <th>Passengers</th>
-    <th>Status</th>
-    <th>Next Stop</th>
-    <th>ETA</th>
-  </tr>
 
-  <tr>
-    <td>101</td>
-    <td>Chennai → Tambaram</td>
-    <td>Ravi</td>
-    <td>9876543210</td>
-    <td>50</td>
-    <td>35</td>
-    <td class="on">On Time</td>
-    <td>Guindy</td>
-    <td>10 mins</td>
-  </tr>
+<tr>
+  <th>Bus No</th>
+  <th>Sub</th>
+  <th>Route</th>
+  <th>Driver</th>
+  <th>Status</th>
+  <th>Next Stop</th>
+  <th>ETA</th>
+</tr>
 
-  <tr>
-    <td>102</td>
-    <td>Chennai → Velachery</td>
-    <td>Suresh</td>
-    <td>9123456780</td>
-    <td>45</td>
-    <td>40</td>
-    <td class="delay">Delayed</td>
-    <td>Adyar</td>
-    <td>20 mins</td>
-  </tr>
+<!-- 101 Chennai -->
+<tr>
+  <td>101</td><td>A</td><td>Chennai → Tambaram</td>
+  <td>Ravi</td><td class="on">On Time</td>
+  <td>Guindy</td><td>10 mins</td>
+</tr>
 
-  <tr>
-    <td>103</td>
-    <td>Chennai → T Nagar</td>
-    <td>Kumar</td>
-    <td>9001122334</td>
-    <td>40</td>
-    <td>28</td>
-    <td class="on">On Time</td>
-    <td>Vadapalani</td>
-    <td>8 mins</td>
-  </tr>
+<tr>
+  <td>101</td><td>B</td><td>Chennai → Velachery</td>
+  <td>Suresh</td><td class="delay">Delayed</td>
+  <td>Airport</td><td>20 mins</td>
+</tr>
+
+<tr>
+  <td>101</td><td>C</td><td>Chennai → T Nagar</td>
+  <td>Kumar</td><td class="on">On Time</td>
+  <td>Vadapalani</td><td>8 mins</td>
+</tr>
+
+<tr>
+  <td>101</td><td>D</td><td>Chennai → Egmore</td>
+  <td>Arun</td><td class="on">On Time</td>
+  <td>Central</td><td>6 mins</td>
+</tr>
+
+<tr>
+  <td>101</td><td>E</td><td>Chennai → Avadi</td>
+  <td>Vijay</td><td class="delay">Delayed</td>
+  <td>Ambattur</td><td>15 mins</td>
+</tr>
+
+<!-- 102 Tirunelveli -->
+<tr>
+  <td>102</td><td>A</td><td>Tirunelveli → Vanapettai</td>
+  <td>Arun</td><td class="on">On Time</td>
+  <td>Town Bus Stand</td><td>10 mins</td>
+</tr>
+
+<tr>
+  <td>102</td><td>B</td><td>Tirunelveli → Palayamkottai</td>
+  <td>Vijay</td><td class="delay">Delayed</td>
+  <td>Market</td><td>20 mins</td>
+</tr>
+
+<tr>
+  <td>102</td><td>C</td><td>Tirunelveli → NGO Colony</td>
+  <td>Karthik</td><td class="on">On Time</td>
+  <td>Junction</td><td>8 mins</td>
+</tr>
+
+<!-- 103 Nagercoil -->
+<tr>
+  <td>103</td><td>A</td><td>Nagercoil → Thuckalay</td>
+  <td>Mani</td><td class="on">On Time</td>
+  <td>Kulasekharam</td><td>12 mins</td>
+</tr>
+
+<tr>
+  <td>103</td><td>B</td><td>Nagercoil → Thovalai</td>
+  <td>Ramesh</td><td class="delay">Delayed</td>
+  <td>Boothapandi</td><td>18 mins</td>
+</tr>
+
+<tr>
+  <td>103</td><td>C</td><td>Nagercoil → Vadasery</td>
+  <td>Saravanan</td><td class="on">On Time</td>
+  <td>Main Bus Stand</td><td>6 mins</td>
+</tr>
 
 </table>
+<!-- ✅ TABLE END -->
 
-<!-- SUMMARY CARDS -->
+<!-- ✅ SUMMARY (TABLE KEELA) -->
 <div class="summary">
 
   <div class="card">
     <h3>Total Buses</h3>
-    <p>3</p>
+    <p id="total">0</p>
   </div>
 
   <div class="card">
     <h3>On Time</h3>
-    <p class="on">2</p>
+    <p id="onCount" class="on">0</p>
   </div>
 
   <div class="card">
     <h3>Delayed</h3>
-    <p class="delay">1</p>
+    <p id="delayCount" class="delay">0</p>
   </div>
 
 </div>
 
-</section>
-
 <script>
+
+function updateCounts() {
+  let rows = document.querySelectorAll("#busTable tr");
+  let on = 0;
+  let delay = 0;
+
+  rows.forEach((row, index) => {
+    if(index === 0) return;
+
+    let statusCell = row.querySelector("td:nth-child(5)");
+    if (!statusCell) return;
+
+    let text = statusCell.innerText.toLowerCase();
+
+    if (text.includes("on time")) on++;
+    if (text.includes("delayed")) delay++;
+  });
+
+  document.getElementById("onCount").innerText = on;
+  document.getElementById("delayCount").innerText = delay;
+  document.getElementById("total").innerText = on + delay;
+}
+
+updateCounts();
+
 function searchBus() {
   let input = document.getElementById("search").value.toLowerCase();
   let rows = document.querySelectorAll("#busTable tr");
 
   rows.forEach((row, index) => {
     if(index === 0) return;
+
     let text = row.innerText.toLowerCase();
     row.style.display = text.includes(input) ? "" : "none";
   });
 }
+
 </script>
 
 </body>
