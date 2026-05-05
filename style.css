@@ -171,3 +171,12 @@ tr:hover {
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
+.hero-img img {
+  width: 180px;
+  animation: move 2s infinite alternate;
+}
+
+@keyframes move {
+  from { transform: translateX(0); }
+  to { transform: translateX(20px); }
+}

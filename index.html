@@ -1,12 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Transport Tracker</title>
+  <title>Smart Transport Tracker</title>
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* small improvements only */
+
+    .btn {
+      padding: 10px 18px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #1e40af;
+    }
+
+    .hero-img img {
+      width: 180px;
+    }
+
+    .card {
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .hero {
+      padding: 30px;
+    }
+
+    .features {
+      padding: 20px;
+      gap: 15px;
+    }
+  </style>
 </head>
 
 <body>
 
+<script>
+let hour = new Date().getHours();
+let msg = "Welcome";
+
+if(hour < 12) msg = "Good Morning ☀️";
+else if(hour < 18) msg = "Good Afternoon 🌤️";
+else msg = "Good Evening 🌙";
+
+document.getElementById("greet").innerText = msg;
+</script>
 <nav class="navbar">
   <h2>🚍 Transport Tracker</h2>
   <div>
@@ -19,16 +67,16 @@
 
 <section class="hero">
   <div class="hero-text">
-    <h1>Welcome to Transport Tracker</h1>
-    <p>Track your bus in real-time easily 🚀</p>
-    <a href="track.html">
-      <button class="btn">Start Tracking</button>
-    </a>
-  </div>
+  <h1>Welcome to  Transport Tracker</h1>
+  <p>Track your bus in real-time easily 🚀</p>
+
+  <!-- ✅ ONE BUTTON ONLY -->
+  <button class="btn" onclick="start()">Start Tracking</button>
+
+</div>
   <div class="hero-img">
     <img src="https://cdn-icons-png.flaticon.com/512/744/744465.png" alt="bus">
- </div>
-  
+  </div>
 </section>
 
 <section class="features">
@@ -48,7 +96,15 @@
     <p>View route and bus details easily</p>
   </div>
 
+
 </section>
+
+<script>
+function start(){
+  alert("Opening Live Tracking...");
+  window.location.href = "track.html";
+}
+</script>
 
 </body>
 </html>
